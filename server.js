@@ -1,16 +1,13 @@
-import dotenv from "dotenv";
-dotenv.config();
 // Import the functions you need from the SDKs you need
 
 import puppeteer from "puppeteer";
 const newspageUrl = "https://orf.at/";
 import { currentDate } from "./helper.js";
 import {
-  firebaseApp,
-  getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
+  storage,
   db,
   collection,
   addDoc,
@@ -18,8 +15,6 @@ import {
   where,
   getDocs,
 } from "./gcloud.js";
-
-const storage = getStorage(firebaseApp, "gs://news-archiver-7395b.appspot.com");
 
 (async () => {
   try {
@@ -98,5 +93,7 @@ const storage = getStorage(firebaseApp, "gs://news-archiver-7395b.appspot.com");
     browser.close();
   } catch (err) {
     console.error(err);
+  } finally {
+    process.exit();
   }
 })();

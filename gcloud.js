@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
@@ -5,21 +7,23 @@ import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.GCLOUD_API_KEY,
-  authDomain: "news-archiver-7395b.firebaseapp.com",
-  projectId: "news-archiver-7395b",
-  storageBucket: "news-archiver-7395b.appspot.com",
-  messagingSenderId: "930834474148",
-  appId: "1:930834474148:web:6bc5815c65aacd874c7231",
-  measurementId: "G-KXFWG9R3TK",
+  authDomain: process.env.GCLOUD_AUTH_DOMAIN,
+  projectId: process.env.GCLOUD_PROJECTID,
+  storageBucket: process.env.GCLOUD_STORAGE_BUCKET,
+  messagingSenderId: process.env.GCLOUD_MESSAGING_SENDER_ID,
+  appId: process.env.GCLOUD_APPID,
+  measurementId: process.env.GCLOUD_MEASUREMENTID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore();
+const storage = getStorage(firebaseApp, process.env.GCLOUD_STORAGEURL);
 
 export {
   firebaseApp,
   getStorage,
   ref,
+  storage,
   uploadBytes,
   getDownloadURL,
   db,
