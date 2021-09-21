@@ -45,7 +45,8 @@ const storage = getStorage(firebaseApp, "gs://news-archiver-7395b.appspot.com");
     const newsList = [];
     for (var i = 0, len = newsElements.length; i < len; i++) {
       page = await browser.newPage();
-      await page.goto(newsElements[i], { waitUntil: "networkidle2" });
+      await page.goto(newsElements[i], { waitUntil: "networkidle0" });
+      await page.waitForTimeout(8000);
       await page.waitForSelector(".image.opener img");
       let image = await page.evaluate(() => {
         return document.querySelector(".image.opener img").srcset;
@@ -87,8 +88,7 @@ const storage = getStorage(firebaseApp, "gs://news-archiver-7395b.appspot.com");
         const q = query(newsRef, where("header", "==", news.header));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
-          let id = await addDoc(collection(db, "news"), news);
-          console.log(id);
+          await addDoc(collection(db, "news"), news);
         }
       } catch (err) {
         console.error(err);
