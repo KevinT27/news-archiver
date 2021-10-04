@@ -76,11 +76,14 @@ import {
         date: currentDate(),
       });
     }
+
     // POST to firebase
-    await newsList.forEach(async (news) => {
+
+    for (const news of newsList) {
       try {
-        const newsRef = collection(db, "news");
-        const q = query(newsRef, where("header", "==", news.header));
+        const newsRef = await collection(db, "news");
+        const q = await query(newsRef, where("header", "==", news.header));
+
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
           await addDoc(collection(db, "news"), news);
@@ -88,12 +91,11 @@ import {
       } catch (err) {
         console.error(err);
       }
-    });
+    }
     console.log("done");
     browser.close();
+    process.exit();
   } catch (err) {
     console.error(err);
-  } finally {
-    process.exit();
   }
 })();
