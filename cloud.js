@@ -1,5 +1,10 @@
-import dotenv from "dotenv";
-dotenv.config();
+
+/* if (process.env.NODE_ENV !== production) {
+  import dotenv from "dotenv";
+  dotenv.config();
+} */
+
+
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";

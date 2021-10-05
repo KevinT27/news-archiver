@@ -1,7 +1,5 @@
 // Import the functions you need from the SDKs you need
-
 import puppeteer from "puppeteer";
-const newspageUrl = "https://orf.at/";
 import { currentDate } from "./helper.js";
 import {
   ref,
@@ -14,11 +12,15 @@ import {
   query,
   where,
   getDocs,
-} from "./gcloud.js";
+} from "./cloud.js";
+
+const newspageUrl = "https://orf.at/";
 
 (async () => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     let page = await browser.newPage();
     await page.goto(newspageUrl, { waitUntil: "networkidle2" });
     // check if cookie-accept window shows up
