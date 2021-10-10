@@ -17,6 +17,13 @@ RUN npm install
 
 COPY . . 
 
+
+CMD [ "node", "server.js" ]
+
+
+RUN dpkg --add-architecture i386
+
+
 RUN apt -y update && apt -y install \
   ca-certificates \
   fonts-liberation \
@@ -31,6 +38,8 @@ RUN apt -y update && apt -y install \
   libexpat1 \
   libfontconfig1 \
   libgbm1 \
+  libgtk2.0-0:i386\
+  libsm6:i386\
   libgcc1 \
   libglib2.0-0 \
   libgtk-3-0 \
@@ -55,5 +64,3 @@ RUN apt -y update && apt -y install \
   lsb-release \
   wget xdg-utils \
   && rm -rf /var/lib/apt/lists/*
-
-CMD [ "node", "server.js" ]
