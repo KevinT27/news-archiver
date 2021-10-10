@@ -88,6 +88,7 @@ async function orfscraper() {
       await page.evaluate(() => {
         document.querySelectorAll(".oonmedia-video-container").forEach(video => video.remove());
         document.querySelectorAll('#animation_container').forEach(ad => ad.remove());
+        document.querySelectorAll('.adwxBanner').forEach(ad => ad.remove());
       })
 
       // upload pdf to firebase storage
